@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 8px;
+    padding: 8px;
+    background-color: #f4f4f4
+}
+
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.reply {
+    background-color: #ededed;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+    
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+
+p {
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #637fe3;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.postform { /* Make the form stretch over the whole width */ /* Make the form a bit more round */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    resize: none; /* Make the form not resizable */
+}
+
+.posttextarea {
+    resize: none;
+    width: 80%; /* Make the textarea not resizable */
+    height: 50px;
+}
+
+.postinput {
+    background-color: #373737;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    position: absolute;
+    height: 58px;
+    top: 77px;
+}
+
+.refresh{
+    background-color: #373737;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    border-radius: 15px;
+    position: absolute;
+    right: 8px;
+}
+
+.dump{
+    background-color: #880000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    border-radius: 15px;
+    position: absolute;
+    right: 11%;
+}
+
+.postdiv {
+    position: relative; /* Needed for absolute positioning of .likeButton */
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+}
+
+.likeCount {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+}
+
+.likeButton {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    padding: 4px 8px;
+}
+
+.postusername {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.posttimestamp {
+    display: inline-block;
+    font-size: 0.8em;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.postcontent {
+    margin: 10px 0;
+    width: fit-content;
+}
+
+.viewRepliesButton, .replyButton {
+    display: block;
+    margin-top: 20px;
+    width: fit-content;
+    padding: 4px 8px;
+}
+
+
+.replytimestamp {
+    display: inline-block;
+    font-size: 0.8em;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.replyusername {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.replycontent {
+    margin: 10px 0;
+}
+
+.reply {
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative; /* Needed for absolute positioning of .likeButton */
+}
+
+.postdiv {
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.postdiv:hover {
+    font-size: 1.1rem;
+}
+
+/* * {
+    box-shadow: 0 0  1px 1px lime;
+} */
