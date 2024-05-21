@@ -2,6 +2,9 @@
 // Start the session
 session_start();
 
+// Debug: print out all session variables
+var_dump($_SESSION);
+
 // Connect to the database
 $db = new mysqli('localhost', 'root', 'Root', 'termin');
 
@@ -9,6 +12,19 @@ $db = new mysqli('localhost', 'root', 'Root', 'termin');
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page
+    header('Location: login.php');
+    exit;
+}
+
+// Check if user is admin
+$is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
+
+var_dump($is_admin);
+
 
 // If form is submitted, insert new post into the database
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content']) && isset($_SESSION['user_id'])) {
@@ -55,7 +71,7 @@ $result = $db->query($sql);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Process the form data
-
+    
     // Redirect to the same page
     header('Location: dashboard.php');
     exit;
@@ -67,6 +83,9 @@ $stmt = $db->prepare($sql);
 $stmt->bind_param('ii', $current_user_id, $post['id']);
 $stmt->execute();
 $like = $stmt->get_result()->fetch_assoc();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -88,37 +107,40 @@ $like = $stmt->get_result()->fetch_assoc();
         <button class="refresh" type="submit">Refresh Posts</button>
     </form>
 
-    <button id="deleteButton" class="dump">dump</button>
     <h2>Existing posts</h2>
 
     <!-- Display posts -->
-    <?php if (isset($posts)): ?>
-        <?php foreach ($posts as $post): ?>
-            <div class="postdiv" onclick="postdivclick(event, <?php echo $post['id'] ?>)">
-                <h2 class="postusername">
-                    <a href="user_posts.php?user_id=<?php echo $post['user_id']; ?>">
-                        <?php echo htmlspecialchars($post['username']); ?>
-                    </a>
-                </h2>
-                <p class="posttimestamp"><?php echo $post['timestamp']; ?></p>
-                <p class="postcontent"><?php echo $post['content']; ?></p>
-                <p class="likeCount">Likes: <?php echo $post['likes']; ?></p>
-                <a href="like_post.php?id=<?php echo $post['id']; ?>" class="likeButton">
-                    like<span class="likeCount"></span>
+    <?php 
+
+if (isset($posts)): 
+    foreach ($posts as $post): ?>
+        <div class="postdiv" onclick="postdivclick(event, <?php echo $post['id'] ?>)">
+            <h2 class="postusername">
+                <a href="user_posts.php?user_id=<?php echo $post['user_id']; ?>">
+                    <?php echo htmlspecialchars($post['username']); ?>
                 </a>
-                <!-- Reply button -->
-                <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
-                <!-- Hidden reply form -->
-                <div class="replyForm" style="display: none;">
-                    <form action="post_reply.php" method="post">
-                        <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
-                        <textarea name="content"></textarea>
-                        <input type="submit" value="Post Reply">
-                    </form>
-                </div>
+            </h2>
+            <p class="posttimestamp"><?php echo $post['timestamp']; ?></p>
+            <p class="postcontent"><?php echo $post['content']; ?></p>
+            <p class="likeCount">Likes: <?php echo $post['likes']; ?></p>
+            <a href="like_post.php?id=<?php echo $post['id']; ?>" class="likeButton">
+                like<span class="likeCount"></span>
+            </a>
+            <!-- Reply button -->
+            <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
+            <!-- Hidden reply form -->
+            <div class="replyForm" style="display: none;">
+                <form action="post_reply.php" method="post">
+                    <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+                    <textarea name="content"></textarea>
+                    <input type="submit" value="Post Reply">
+                </form>
             </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+            <!-- Delete button for admin users -->
+            <a href="delete_post.php?id=<?php echo $post['id']; ?>" class="deleteButton" style="<?php echo $is_admin ? '' : 'display: none;'; ?>">Delete</a>
+        </div>
+    <?php endforeach; 
+endif; ?>
     <!-- Logout button -->
     <a href="logout.php">
         <button>Log Out</button>
@@ -140,12 +162,6 @@ $like = $stmt->get_result()->fetch_assoc();
         window.location = `post_and_replies.php?id=${id}`
     }
 
-    document.getElementById('deleteButton').addEventListener('click', function () {
-        fetch('delete_posts.php')
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-    });
 
     document.querySelectorAll('.likeButton').forEach(function (button) {
         button.addEventListener('click', function () {

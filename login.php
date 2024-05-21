@@ -23,15 +23,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
+    // Debug: print out the value of $user['isadmin']
+    var_dump($user['isadmin']);
+
     // Check if password is correct
     if (password_verify($password, $user['password'])) {
-        // Set user_id session variable
+        // Set user_id and is_admin session variables
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['is_admin'] = $user['isadmin'];
         header("Location: dashboard.php");
     } else {
         echo "Invalid username or password";
     }
 }
+
+// Rest of your code...
+
+
 ?>
 
 <!DOCTYPE html>
