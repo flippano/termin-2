@@ -37,14 +37,14 @@ a:hover {
     text-decoration: underline;
 }
 
-.postform { /* Make the form stretch over the whole width */ /* Make the form a bit more round */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-    resize: none; /* Make the form not resizable */
+.postform { 
+    box-sizing: border-box; 
+    resize: none; 
 }
 
 .posttextarea {
     resize: none;
-    width: 80%; /* Make the textarea not resizable */
+    width: 80%; 
     height: 50px;
 }
 
@@ -88,7 +88,7 @@ a:hover {
 }
 
 .postdiv {
-    position: relative; /* Needed for absolute positioning of .likeButton */
+    position: relative; 
     background-color: #fff;
     padding: 20px;
     margin: 20px 0;
@@ -97,14 +97,14 @@ a:hover {
 
 .likeCount {
     position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
+    top: 10px; 
+    right: 10px; 
 }
 
 .likeButton {
     position: absolute;
-    bottom: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
+    bottom: 10px; 
+    right: 10px; 
     padding: 4px 8px;
 }
 
@@ -152,7 +152,7 @@ a:hover {
 .reply {
     padding: 10px;
     margin-bottom: 20px;
-    position: relative; /* Needed for absolute positioning of .likeButton */
+    position: relative; 
 }
 
 .postdiv {

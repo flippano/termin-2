@@ -1,34 +1,28 @@
 <?php
-// Connect to the database
 $db = new mysqli('localhost', 'root', 'Root', 'termin');
 
-// Check connection
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
 
-// Get the post ID from the URL
 $post_id = $_GET['id'];
-
-// Get the post from the database
+//henter replies
 $sql = "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = ?";
 $stmt = $db->prepare($sql);
 $stmt->bind_param('i', $post_id);
 $stmt->execute();
 $post = $stmt->get_result()->fetch_assoc();
-
-// Get the replies for the post from the database
+//henter replies pt.2
 $sql = "SELECT replies.*, users.username FROM replies JOIN users ON replies.user_id = users.id WHERE replies.post_id = ? ORDER BY replies.timestamp ASC";
 $stmt = $db->prepare($sql);
 $stmt->bind_param('i', $post_id);
 $stmt->execute();
 $replies = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// Create an array of posts for the template
 $posts = array($post);
 ?>
 
-<!-- Display the post using the provided template -->
+
 <?php if (isset($posts)): ?>
         <?php foreach ($posts as $post): ?>
             <div class="postdiv">
@@ -43,9 +37,9 @@ $posts = array($post);
                 <a href="like_post.php?id=<?php echo $post['id']; ?>" class="likeButton">
                 like<span class="likeCount"></span>
                 </a>
-                <!-- Reply button -->
+                
                 <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
-                <!-- Hidden reply form -->
+                
                 <div class="replyForm" style="display: none;">
                     <form action="post_reply.php" method="post">
                         <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
@@ -57,7 +51,7 @@ $posts = array($post);
         <?php endforeach; ?>
     <?php endif; ?>
 
-<!-- Display the replies -->
+
 <?php foreach ($replies as $reply): ?>
     <div class="reply">
         <h3 class="replyusername"><?php echo htmlspecialchars($reply['username']); ?></h3>

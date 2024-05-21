@@ -1,40 +1,32 @@
 <?php
-// Start the session
 session_start();
 
-// Connect to the database
 $db = new mysqli('localhost', 'root', 'Root', 'termin');
 
-// Check connection
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Fetch user from the database
-    $sql = "SELECT * FROM users WHERE username = ?";
+        $sql = "SELECT * FROM users WHERE username = ?";
     $stmt = $db->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    // Check if password is correct
-    if (password_verify($password, $user['password'])) {
-        // Set user_id and is_admin session variables
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['is_admin'] = (bool) $user['isadmin'];
+        if (password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['is_admin'] = (bool) $user['isadmin'];
         header("Location: dashboard.php");
     } else {
         echo "Invalid username or password";
     }
 }
 
-// Rest of your code...
 
 
 ?>
@@ -44,23 +36,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
 
 <head>
     <title>Login Form</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to the CSS stylesheet -->
+    <link rel="stylesheet" href="style.css"> 
 </head>
 
 <body>
     <h2>Login Form</h2>
-    <?php if (isset($error_message)): ?> <!-- If there is an error message, display it -->
+    <?php if (isset($error_message)): ?> 
         <p><?php echo $error_message; ?></p>
     <?php endif; ?>
     <form id="loginForm" method="post">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br> <!-- Input for the username -->
+        <input type="text" id="username" name="username" required><br><br> 
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br> <!-- Input for the password -->
+        <input type="password" id="password" name="password" required><br><br> 
 
-        <button type="submit">Login</button> <!-- Button to submit the form and log in -->
-        <a href="index.html">cancel</a> <!-- Link to cancel login and return to the index page -->
+        <button type="submit">Login</button> 
+        <a href="index.html">cancel</a> 
     </form>
 </body>
 

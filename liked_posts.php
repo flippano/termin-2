@@ -1,28 +1,23 @@
 <?php
 session_start();
 
-// Connect to the database
 $db = new mysqli('localhost', 'root', 'Root', 'termin');
 
-// Check connection
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
-
-// Get all posts liked by the current user
+//henter alle liked posts
 $sql = "SELECT posts.*, users.username FROM likes JOIN posts ON likes.post_id = posts.id JOIN users ON posts.user_id = users.id WHERE likes.user_id = ?";
 $stmt = $db->prepare($sql);
 $stmt->bind_param('i', $_SESSION['user_id']);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Fetch the posts into an array
 $posts = [];
 while ($post = $result->fetch_assoc()) {
     $posts[] = $post;
 }
 
-// Close the database connection
 
 ?>
 
@@ -37,7 +32,8 @@ while ($post = $result->fetch_assoc()) {
 </head>
 
 <body>
-<?php if (isset($posts)): ?>
+<?php //posts!
+if (isset($posts)): ?>
         <?php foreach ($posts as $post): ?>
             <div class="postdiv" onclick="postdivclick(event, <?php echo $post['id'] ?>)">
                 <h2 class="postusername">
@@ -51,9 +47,9 @@ while ($post = $result->fetch_assoc()) {
                 <a href="like_post.php?id=<?php echo $post['id']; ?>" class="likeButton">
                 like<span class="likeCount"></span>
                 </a>
-                <!-- Reply button -->
+                
                 <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
-                <!-- Hidden reply form -->
+                
                 <div class="replyForm" style="display: none;">
                     <form action="post_reply.php" method="post">
                         <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
@@ -71,8 +67,7 @@ while ($post = $result->fetch_assoc()) {
 <script>
     document.querySelectorAll('.replyButton').forEach(function (button) {
         button.addEventListener('click', function () {
-            // Toggle the display of the reply form
-            var replyForm = button.nextElementSibling;
+                        var replyForm = button.nextElementSibling;
             replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
         });
     });
@@ -82,8 +77,7 @@ while ($post = $result->fetch_assoc()) {
             return;
         }
 
-        // piss
-
+        
         window.location = `post_and_replies.php?id=${id}`
     }
 </script>

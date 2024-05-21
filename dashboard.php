@@ -1,31 +1,23 @@
 <?php
-// Start the session
 session_start();
 
-// Debug: print out all session variables
 
-// Connect to the database
 $db = new mysqli('localhost', 'root', 'Root', 'termin');
 
-// Check connection
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect to login page
-    header('Location: login.php');
+        header('Location: login.php');
     exit;
 }
 
 
-
-// Check if user is admin
+//er du admin?
 $is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
 
-
-// If form is submitted, insert new post into the database
+//process posts! :D
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content']) && isset($_SESSION['user_id'])) {
     $content = $_POST['content'];
     $content = htmlspecialchars($content);
@@ -42,12 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content']) && isset($_
 
 }
 
-
-// Fetch all posts from the database and join with users table to get username
+//hent alle posts
 $sql = "SELECT posts.*, users.id FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.timestamp DESC";
 $result = $db->query($sql);
 
-// Fetch all posts from the database and sort them by time
+//hent alle posts navn
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.timestamp DESC";
     $result = $db->query($sql);
@@ -57,10 +48,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $sql = "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.timestamp DESC";
 $result = $db->query($sql);
 
+//lag en array med posts
 $posts = array();
 if ($result->num_rows > 0) {
-    // Output data of each row
-    while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
         $posts[] = $row;
     }
 }
@@ -69,14 +60,12 @@ $sql = "SELECT posts.*, users.id FROM posts JOIN users ON posts.user_id = users.
 $result = $db->query($sql);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Process the form data
-    
-    // Redirect to the same page
-    header('Location: dashboard.php');
+        
+        header('Location: dashboard.php');
     exit;
 }
 
-// Query the database for a like from the current user on the current post
+//hent alle likes
 $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
 $stmt = $db->prepare($sql);
 $stmt->bind_param('ii', $current_user_id, $post['id']);
@@ -101,16 +90,16 @@ $like = $stmt->get_result()->fetch_assoc();
         <input class="postinput" type="submit" value="Submit">
     </form>
 
-    <!-- Refresh button -->
+    
     <form method="POST">
         <button class="refresh" type="submit">Refresh Posts</button>
     </form>
 
     <h2>Existing posts</h2>
 
-    <!-- Display posts -->
+    
     <?php 
-
+//post :D
 if (isset($posts)): 
     foreach ($posts as $post): ?>
         <div class="postdiv" onclick="postdivclick(event, <?php echo $post['id'] ?>)">
@@ -125,9 +114,9 @@ if (isset($posts)):
             <a href="like_post.php?id=<?php echo $post['id']; ?>" class="likeButton">
                 like<span class="likeCount"></span>
             </a>
-            <!-- Reply button -->
+            
             <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
-            <!-- Hidden reply form -->
+            
             <div class="replyForm" style="display: none;">
                 <form action="post_reply.php" method="post">
                     <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
@@ -135,12 +124,12 @@ if (isset($posts)):
                     <input type="submit" value="Post Reply">
                 </form>
             </div>
-            <!-- Delete button for admin users -->
+            
             <a href="delete_post.php?id=<?php echo $post['id']; ?>" class="deleteButton" style="<?php echo $is_admin ? '' : 'display: none;'; ?>">Delete</a>
         </div>
     <?php endforeach; 
 endif; ?>
-    <!-- Logout button -->
+    
     <a href="logout.php">
         <button>Log Out</button>
     </a>
@@ -156,8 +145,7 @@ endif; ?>
             return;
         }
 
-        // piss
-
+        
         window.location = `post_and_replies.php?id=${id}`
     }
 
@@ -166,14 +154,12 @@ endif; ?>
         button.addEventListener('click', function () {
             var postId = this.dataset.postId;
 
-            // Send AJAX request
-            var xhr = new XMLHttpRequest();
+                        var xhr = new XMLHttpRequest();
             xhr.open('POST', 'like_post.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send('id=' + postId);
 
-            // Update like count
-            xhr.onload = function () {
+                        xhr.onload = function () {
                 if (xhr.status == 200) {
                     var likeCount = button.querySelector('.likeCount');
                     likeCount.textContent = parseInt(likeCount.textContent) + 1;
@@ -184,8 +170,7 @@ endif; ?>
 
     document.querySelectorAll('.showRepliesButton').forEach(function (button) {
         button.addEventListener('click', function () {
-            // Toggle the display of the replies and the reply form
-            var replies = button.nextElementSibling;
+                        var replies = button.nextElementSibling;
             var replyForm = replies.nextElementSibling;
             replies.style.display = replies.style.display === 'none' ? 'block' : 'none';
             replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
@@ -194,8 +179,7 @@ endif; ?>
 
     document.querySelectorAll('.replyButton').forEach(function (button) {
         button.addEventListener('click', function () {
-            // Toggle the display of the reply form
-            var replyForm = button.nextElementSibling;
+                        var replyForm = button.nextElementSibling;
             replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
         });
     });
