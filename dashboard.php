@@ -3,7 +3,6 @@
 session_start();
 
 // Debug: print out all session variables
-var_dump($_SESSION);
 
 // Connect to the database
 $db = new mysqli('localhost', 'root', 'Root', 'termin');
@@ -20,10 +19,10 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+
+
 // Check if user is admin
 $is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
-
-var_dump($is_admin);
 
 
 // If form is submitted, insert new post into the database
