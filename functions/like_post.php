@@ -49,7 +49,7 @@ if (isset($_GET['id']) && isset($_SESSION['user_id'])) {
     
 
     
-    header('Location: dashboard.php');
+    header('Location: ../dashboard.php');
     $db->close();
     exit;
 }

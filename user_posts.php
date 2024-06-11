@@ -23,14 +23,14 @@ echo "<h1>" . htmlspecialchars($posts[0]['username']) . "'s Posts</h1>";
                 <p class="posttimestamp"><?php echo $post['timestamp']; ?></p>
                 <p class="postcontent"><?php echo htmlspecialchars($post['content']); ?></p>
                 <p class="likeCount">Likes: <?php echo $post['likes']; ?></p>
-                <a class="likeButton" href="like_post.php?id=<?php echo $post['id']; ?>">
+                <a class="likeButton" href="functions/like_post.php?id=<?php echo $post['id']; ?>">
                 like<span class="likeCount"></span>
                 </a>
                 
                 <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
                 
                 <div class="replyForm" style="display: none;">
-                    <form action="post_reply.php" method="post">
+                    <form action="functions/post_reply.php" method="post">
                         <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
                         <textarea name="content"></textarea>
                         <input type="submit" value="Post Reply">

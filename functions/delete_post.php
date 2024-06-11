@@ -8,4 +8,4 @@ $stmt = $db->prepare($sql);
 $stmt->bind_param('i', $post_id);
 $stmt->execute();
 
-header('Location: dashboard.php');
+header('Location: ../dashboard.php');

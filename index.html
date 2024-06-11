@@ -8,13 +8,91 @@
 </head>
 <body>
     <header>
-        mais foreums!
+        <nav>
+            <ul>
+                <li><a href="login.php">Home</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <a href="login.php">Log in</a>
-    <a href="register.php">Register</a>
+
+    <main>
+        <h1>Welcome to My Site!</h1>
+        <p>Join the discussion in our forums!</p>
+        <div class="auth-links">
+            <a href="login.php">Log in</a>
+            <a href="register.php">Register</a>
+        </div>
+    </main>
+
     <footer>
-        &copy; 2503 My Site
+        <p>&copy; 2023 My Site</p>
     </footer>
-    <a href="faq.html">FAQ</a>
 </body>
 </html>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.auth-links a {
+    display: inline-block;
+    margin: 10px;
+    color: blue;
+    text-decoration: none;
+}
+
+footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px 0;
+}
+
+@media (max-width: 600px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+</style>

@@ -19,5 +19,5 @@ if (isset($_POST['post_id']) && isset($_POST['content'])) {
 }
 
 
-header('Location: dashboard.php');
+header('Location: ../dashboard.php');
 exit;
