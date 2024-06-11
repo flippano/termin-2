@@ -1,58 +1,73 @@
 ryddet opp i kode, ryddet opp i folders
 
-Fjerning av Duplikate SQL-forespørsler:
-
-    Hva ble gjort:
-        Fjernet duplikate SQL-forespørsler som henter de samme postene flere ganger.
-    Hvorfor:
-        Redundante forespørsler kan redusere ytelsen og gjøre koden vanskeligere å vedlikeholde.
-    Hva kan skje uten fiksen:
-        Unødvendige databasekall kan føre til redusert ytelse og potensielle feil på grunn av ubrukelig data.
-
-Beskyttelse mot SQL-injeksjon:
-
-    Hva ble gjort:
-        Brukte forberedte uttalelser ($stmt->bind_param) for å hindre SQL-injeksjon.
-    Hvorfor:
-        Forberedte uttalelser beskytter mot SQL-injeksjonsangrep, hvor ondsinnede brukere kan manipulere SQL-forespørsler.
-    Hva kan skje uten fiksen:
-        Uten forberedte uttalelser kan applikasjonen være sårbar for SQL-injeksjonsangrep, noe som kan føre til kompromittering av databaseinnholdet.
-
-Bedre Håndtering av Økter:
-
-    Hva ble gjort:
-        Sjekket for en gyldig økt umiddelbart etter tilkobling til databasen.
-    Hvorfor:
-        For å sikre at bare autoriserte brukere har tilgang til siden.
-    Hva kan skje uten fiksen:
-        Uautoriserte brukere kan få tilgang til beskyttede sider, noe som kan føre til sikkerhetsbrudd.
-
-Forbedret Feilhåndtering:
-
-    Hva ble gjort:
-        La til bedre feilhåndtering ved innlegg av poster og omdirigering ved suksess.
-    Hvorfor:
-        Gir brukeren tilbakemelding om operasjonens status og forbedrer brukeropplevelsen.
-    Hva kan skje uten fiksen:
-        Brukere kan bli forvirret hvis de ikke får tilbakemelding på handlingene sine, og feilhåndtering kan bli vanskelig.
-
-Ryddig og Strukturert Kode:
-
-    Hva ble gjort:
-        Konsoliderte POST-håndtering og hentingen av poster til én blokk.
-    Hvorfor:
-        For å gjøre koden mer lesbar og vedlikeholdbar.
-    Hva kan skje uten fiksen:
-        Uoversiktlig kode kan føre til feil og gjøre vedlikehold vanskeligere.
-
 
 start hvis fram gammel nettside, og se hva som er gjort, og hva som kan gjøres bedre. 
+    Fjerning av Duplikate SQL-forespørsler:
+
+        Hva ble gjort:
+            Fjernet duplikate SQL-forespørsler som henter de samme postene flere ganger.
+        Hvorfor:
+            Redundante forespørsler kan redusere ytelsen og gjøre koden vanskeligere å vedlikeholde.
+        Hva kan skje uten fiksen:
+            Unødvendige databasekall kan føre til redusert ytelse og potensielle feil på grunn av ubrukelig data.
+
+    Beskyttelse mot SQL-injeksjon:
+
+        Hva ble gjort:
+            Brukte forberedte uttalelser ($stmt->bind_param) for å hindre SQL-injeksjon.
+        Hvorfor:
+            Forberedte uttalelser beskytter mot SQL-injeksjonsangrep, hvor ondsinnede brukere kan manipulere SQL-forespørsler.
+        Hva kan skje uten fiksen:
+            Uten forberedte uttalelser kan applikasjonen være sårbar for SQL-injeksjonsangrep, noe som kan føre til kompromittering av databaseinnholdet.
+
+    Bedre Håndtering av Økter:
+
+        Hva ble gjort:
+            Sjekket for en gyldig økt umiddelbart etter tilkobling til databasen.
+        Hvorfor:
+            For å sikre at bare autoriserte brukere har tilgang til siden.
+        Hva kan skje uten fiksen:
+            Uautoriserte brukere kan få tilgang til beskyttede sider, noe som kan føre til sikkerhetsbrudd.
+
+    Forbedret Feilhåndtering:
+
+        Hva ble gjort:
+            La til bedre feilhåndtering ved innlegg av poster og omdirigering ved suksess.
+        Hvorfor:
+            Gir brukeren tilbakemelding om operasjonens status og forbedrer brukeropplevelsen.
+        Hva kan skje uten fiksen:
+            Brukere kan bli forvirret hvis de ikke får tilbakemelding på handlingene sine, og feilhåndtering kan bli vanskelig.
+
+    Ryddig og Strukturert Kode:
+
+        Hva ble gjort:
+            Konsoliderte POST-håndtering og hentingen av poster til én blokk.
+        Hvorfor:
+            For å gjøre koden mer lesbar og vedlikeholdbar.
+        Hva kan skje uten fiksen:
+            Uoversiktlig kode kan føre til feil og gjøre vedlikehold vanskeligere.    
 
 hvise gammel kode og forklare hva noen av problemene er.
 
 ssh inn i serveren, start nettside og hvis fram ny nettside.
 
 forklare hva jeg har gjort som endringer, hvordan jeg har gjort de, og hvorfor.
+
+røre på noen lover og regler, og forklare hvorfor de er viktige, og hva jeg har gjort for å følge de.
+
+forklare hva slags tak jeg har tatt for å beskyte mot hackere, og exploits
+
+hvise fram repo, og forklare hvordan jeg har brukt git, og hvorfor det er viktig.
+
+clone repo, og gjøre en endring, og push endringen til repo.
+    cd desktop
+    mkdir git
+    cd git
+    git clone https://github.com/flippano/termin-2.git
+lage ny tabell i databasen, mysql dump endringene og push til git og.
+
+
+
 
 
 
