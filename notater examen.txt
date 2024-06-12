@@ -47,14 +47,21 @@ start hvis fram gammel nettside, og se hva som er gjort, og hva som kan gjøres 
         Hva kan skje uten fiksen:
             Uoversiktlig kode kan føre til feil og gjøre vedlikehold vanskeligere.    
 
-hvise gammel kode og forklare hva noen av problemene er.
+vise gammel kode og forklare hva noen av problemene er.
 
 ssh inn i serveren, start nettside og hvis fram ny nettside.
+    ssh svr@svr poob
+    cd /var/www/html
+    ls
+    sudo systemctl start apache2
+    sudo systemctl start mysql
+    exit
+    *temporary mby*
 
 forklare hva jeg har gjort som endringer, hvordan jeg har gjort de, og hvorfor.
 
 røre på noen lover og regler, og forklare hvorfor de er viktige, og hva jeg har gjort for å følge de.
-
+    
 forklare hva slags tak jeg har tatt for å beskyte mot hackere, og exploits
 
 hvise fram repo, og forklare hvordan jeg har brukt git, og hvorfor det er viktig.
