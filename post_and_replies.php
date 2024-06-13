@@ -1,20 +1,20 @@
 <?php
-$db = new mysqli('localhost', 'root', 'Root', 'termin');
+require 'functions/db_connect.php';
 
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
 $post_id = $_GET['id'];
 //henter replies
 $sql = "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = ?";
-$stmt = $db->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $post_id);
 $stmt->execute();
 $post = $stmt->get_result()->fetch_assoc();
 //henter replies pt.2
 $sql = "SELECT replies.*, users.username FROM replies JOIN users ON replies.user_id = users.id WHERE replies.post_id = ? ORDER BY replies.timestamp ASC";
-$stmt = $db->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $post_id);
 $stmt->execute();
 $replies = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

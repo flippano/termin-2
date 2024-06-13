@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-$db = new mysqli('localhost', 'root', 'Root', 'termin');
+require 'functions/db_connect.php';
 
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 //henter alle liked posts
 $sql = "SELECT posts.*, users.username FROM likes JOIN posts ON likes.post_id = posts.id JOIN users ON posts.user_id = users.id WHERE likes.user_id = ?";
-$stmt = $db->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $_SESSION['user_id']);
 $stmt->execute();
 $result = $stmt->get_result();

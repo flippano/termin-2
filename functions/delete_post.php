@@ -1,10 +1,10 @@
 <?php
-$db = new mysqli('localhost', 'root', 'Root', 'termin');
+require 'db_connect.php';
 
 $post_id = $_GET['id'];
 
 $sql = "DELETE FROM posts WHERE id = ?";
-$stmt = $db->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $post_id);
 $stmt->execute();
 

@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-$db = new mysqli('localhost', 'root', 'Root', 'termin');
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
+require 'functions/db_connect.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
@@ -16,7 +13,7 @@ $is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content']) && isset($_SESSION['user_id'])) {
     $content = htmlspecialchars($_POST['content']);
     $user_id = $_SESSION['user_id'];
-    $stmt = $db->prepare("INSERT INTO posts (user_id, content) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO posts (user_id, content) VALUES (?, ?)");
     $stmt->bind_param("is", $user_id, $content);
     if ($stmt->execute()) {
         header('Location: ../dashboard.php');
@@ -27,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['content']) && isset($_
 }
 
 $sql = "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.timestamp DESC";
-$result = $db->query($sql);
+$result = $conn->query($sql);
 $posts = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
 $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
-$stmt = $db->prepare($sql);
+$stmt = $conn->prepare($sql);
 
 ?>
 

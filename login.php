@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-$db = new mysqli('localhost', 'root', 'Root', 'termin');
-
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
+require 'functions/db_connect.php';
 
 $error_message = '';
 
@@ -14,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM users WHERE username = ?";
-    $stmt = $db->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();

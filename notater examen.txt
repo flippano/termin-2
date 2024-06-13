@@ -45,132 +45,67 @@ start hvis fram gammel nettside, og se hva som er gjort, og hva som kan gjøres 
         Hvorfor:
             For å gjøre koden mer lesbar og vedlikeholdbar.
         Hva kan skje uten fiksen:
-            Uoversiktlig kode kan føre til feil og gjøre vedlikehold vanskeligere.    
+            Uoversiktlig kode kan føre til feil og gjøre vedlikehold vanskeligere.  
+
+    lagde db_connect:
+
+        hva ble gjort:
+            lagde en egen fil for å koble til databasen.
+        hvorfor:
+            for å gjøre koden mer lesbar og vedlikeholdbar.
+        hva kan skje uten fiksen:
+            kode kan bli uoversiktlig og vanskelig å vedlikeholde.  
 
 vise gammel kode og forklare hva noen av problemene er.
 
 ssh inn i serveren, start nettside og hvis fram ny nettside.
-    ssh svr@svr poob
+    ssh svr@svr                    license-citizens.gl.at.ply.gg -p 37905
     cd /var/www/html
     ls
     sudo systemctl start apache2
-    sudo systemctl start mysql
     exit
-    *temporary mby*
 
 forklare hva jeg har gjort som endringer, hvordan jeg har gjort de, og hvorfor.
 
 røre på noen lover og regler, og forklare hvorfor de er viktige, og hva jeg har gjort for å følge de.
-    
+    Lov om behandling av personopplysninger (personopplysningsloven) med nasjonale tilpasninger og personvernforordningen 
 forklare hva slags tak jeg har tatt for å beskyte mot hackere, og exploits
 
 hvise fram repo, og forklare hvordan jeg har brukt git, og hvorfor det er viktig.
-
+    bookmark
+    "backups"
+    "nyttig"
 clone repo, og gjøre en endring, og push endringen til repo.
     cd desktop
     mkdir git
     cd git
     git clone https://github.com/flippano/termin-2.git
 lage ny tabell i databasen, mysql dump endringene og push til git og.
+    CREATE TABLE Users (
+        UserID int NOT NULL AUTO_INCREMENT,
+        Username varchar(255) NOT NULL,
+        Password varchar(8) NOT NULL,
+        PRIMARY KEY (UserID)
+    );
+
+    INSERT INTO Users (Username, Password) VALUES ('username', 'password');
+
+    UPDATE Users SET Password = 'newpassword' WHERE Username = 'username';
+
+    DELETE FROM Users WHERE Username = 'username';
+
+    ALTER TABLE Users ADD Email varchar(255);
+                      modify
+
+    ALTER TABLE Users DROP COLUMN Email;
+
+    ALTER TABLE Users ADD Email varchar(255) AFTER Username;
+                                             FIRST;
+
+    mysqldump -u root -p oppdrag > oppdrag.sql
+
+    mysql -u root -p piss < oppdrag.sql
 
 
 
 
-
-
-Presentation Structure
-1. Introduction (5 minutes)
-
-    1.1 Welcome and Introduction:
-        Brief introduction of yourself.
-        Overview of what the presentation will cover.
-
-2. Old Website Review (10 minutes)
-
-    2.1 Show Old Website:
-        Live demonstration of the old website.
-        Briefly navigate through key features/pages.
-
-    2.2 Discuss Flaws and Issues:
-        Explain the main flaws, annoyances, and problems encountered.
-            Examples:
-                Performance Issues: Slow loading times.
-                Security Concerns: Vulnerabilities in the code.
-                User Experience: Poor layout or navigation issues.
-                Code Maintenance: Difficult to maintain or extend.
-
-3. New Website Introduction (10 minutes)
-
-    3.1 Show New Website:
-        Live demonstration of the new website.
-        Highlight improvements and new features.
-        Compare side-by-side with the old website.
-
-    3.2 Key Improvements:
-        Discuss specific improvements made.
-            Examples:
-                Performance Enhancements: Faster load times.
-                Security Upgrades: Use of prepared statements, session management.
-                User Experience: Improved layout, responsive design.
-                Code Quality: Refactored code, better structure.
-
-4. MySQL Coding (5 minutes)
-
-    4.1 Basic MySQL Operations:
-        Show basic CRUD operations (Create, Read, Update, Delete).
-        Example code snippets for each operation.
-        Explain the importance of using prepared statements for security.
-
-    4.2 Database Design:
-        Brief overview of the database schema.
-        Explain relationships between tables (e.g., users and posts).
-
-5. Using GIT (5 minutes)
-
-    5.1 Introduction to GIT:
-        Explain what GIT is and why it's important for version control.
-        Basic GIT commands (init, add, commit, push, pull).
-
-    5.2 Demonstration:
-        Live demonstration of using GIT.
-            Examples:
-                Cloning a repository.
-                Making changes and committing them.
-                Pushing changes to a remote repository.
-
-6. Elaborating on Improvements and Changes (10 minutes)
-
-    6.1 Strengths and Weaknesses of the Chosen Stack:
-        PHP:
-            Strengths: Easy to learn, extensive community, good for server-side scripting.
-            Weaknesses: Performance issues compared to newer technologies, security concerns.
-        JavaScript:
-            Strengths: Client-side scripting, large ecosystem, versatility (Node.js).
-            Weaknesses: Browser compatibility issues, can be less performant for heavy computations.
-        MySQL:
-            Strengths: Reliable, widely used, strong ACID compliance.
-            Weaknesses: Performance bottlenecks with very large datasets, less flexible schema.
-        HTML/CSS:
-            Strengths: Core technologies for web development, easy to learn, standard across browsers.
-            Weaknesses: CSS can become complex, limited dynamic capabilities without JavaScript.
-
-    6.2 Further Improvements:
-        Discuss potential future improvements.
-            Examples:
-                Performance: Implementing caching, optimizing database queries.
-                Security: Further hardening against attacks, regular audits.
-                Features: Adding more interactive elements, improving SEO.
-                Maintenance: Continuous integration, automated testing.
-
-7. Q&A Session (5-10 minutes)
-
-    Open the floor for questions.
-    Encourage audience interaction.
-    Provide clear and concise answers.
-
-Tips for Presentation
-
-    Practice: Rehearse your presentation multiple times to ensure smooth delivery.
-    Time Management: Keep an eye on the clock to ensure you cover all sections within the allotted time.
-    Engage the Audience: Ask questions or seek feedback during the presentation to keep the audience engaged.
-    Visual Aids: Use slides or live demos effectively to illustrate your points.

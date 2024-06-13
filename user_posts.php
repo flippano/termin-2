@@ -1,10 +1,10 @@
 <?php
-$db = new mysqli('localhost', 'root', 'Root', 'termin');
+require 'functions/db_connect.php';
 
 $user_id = $_GET['user_id'];
 
 $sql = "SELECT users.username, posts.* FROM users JOIN posts ON users.id = posts.user_id WHERE users.id = ?";
-$stmt = $db->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
 $posts = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
