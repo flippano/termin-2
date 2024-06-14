@@ -87,7 +87,7 @@ clone repo, og gjøre en endring, og push endringen til repo.
     cd desktop
     mkdir git
     cd git
-    git clone https://github.com/flippano/termin-2.git
+    git clone https://github.com/flippano/termin-2.git .
     endring
     git remote add origin https://github.com/flippano/termin-2.git
     git push
@@ -117,6 +117,12 @@ lage ny tabell i databasen, mysql dump endringene og push til git og.
 
     mysql -u root -p piss < oppdrag.sql
 
+redigere liten greie i nettsiden, og push til git.
+    $greetings = ["Hello", "Hi", "Greetings", "Welcome", "Salutations"];
 
+    $random_greeting = $greetings[array_rand($greetings)];
+
+    echo "<h1>" . $random_greeting . " " . htmlspecialchars($posts[0]['username']) . "</h1>";
+    git push
 
 

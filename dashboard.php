@@ -31,6 +31,9 @@ $posts = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 $sql = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
 $stmt = $conn->prepare($sql);
 
+
+
+
 ?>
 
 <!DOCTYPE html>
