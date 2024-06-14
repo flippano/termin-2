@@ -1,9 +1,8 @@
 <?php
 require 'functions/db_connect.php';
+include 'functions/post.php';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
 
 $post_id = $_GET['id'];
 //henter replies
@@ -23,33 +22,7 @@ $posts = array($post);
 ?>
 
 
-<?php if (isset($posts)): ?>
-        <?php foreach ($posts as $post): ?>
-            <div class="postdiv">
-                <h2 class="postusername">
-                    <a href="user_posts.php?user_id=<?php echo $post['user_id']; ?>">
-                        <?php echo htmlspecialchars($post['username']);; ?>
-                    </a>
-                </h2>
-                <p class="posttimestamp"><?php echo $post['timestamp']; ?></p>
-                <p class="postcontent"><?php echo $post['content']; ?></p>
-                <p class="likeCount">Likes: <?php echo $post['likes']; ?></p>
-                <a href="functions/like_post.php?id=<?php echo $post['id']; ?>" class="likeButton">
-                like<span class="likeCount"></span>
-                </a>
-                
-                <a class="replyButton" data-post-id="<?php echo $post['id']; ?>">Reply</a>
-                
-                <div class="replyForm" style="display: none;">
-                    <form action="functions/post_reply.php" method="post">
-                        <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
-                        <textarea name="content"></textarea>
-                        <input type="submit" value="Post Reply">
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+<?php render_posts($posts, $is_admin); ?>
 
 
 <?php foreach ($replies as $reply): ?>

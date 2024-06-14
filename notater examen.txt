@@ -64,6 +64,14 @@ ssh inn i serveren, start nettside og hvis fram ny nettside.
     ls
     sudo systemctl start apache2
     exit
+    fuck opp med credentials
+    ssh igjen
+    less /var/log/apache2/error.log
+    "oh jeg er dumbass"
+    inn i db_connect
+    root2
+    root
+    exit
 
 forklare hva jeg har gjort som endringer, hvordan jeg har gjort de, og hvorfor.
 
@@ -80,6 +88,9 @@ clone repo, og gjøre en endring, og push endringen til repo.
     mkdir git
     cd git
     git clone https://github.com/flippano/termin-2.git
+    endring
+    git remote add origin https://github.com/flippano/termin-2.git
+    git push
 lage ny tabell i databasen, mysql dump endringene og push til git og.
     CREATE TABLE Users (
         UserID int NOT NULL AUTO_INCREMENT,
